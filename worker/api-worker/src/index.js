@@ -2,7 +2,7 @@
 let gameCounter = 0;
 const sportsRecords = [
   {
-    answer: "adrian peterson",
+    answer: "Adrian Peterson",
     question: "Who had the most rushing yards in the 2012 NFL season?",
     clues: [
       "In football, I set the record for rushing yards in the 2012 season",
@@ -13,7 +13,7 @@ const sportsRecords = [
     ]
   },
   {
-    answer: "aaron judge",
+    answer: "Aaron Judge",
     question: "Who hit 62 home runs in the 2022 MLB season?",
     clues: [
       "In baseball, I set the record for home runs in the 2022 season",
@@ -24,7 +24,7 @@ const sportsRecords = [
     ]
   },
   {
-    answer: "steph curry",
+    answer: "Stephen Curry",
     question: "Who made 402 three-pointers in the 2015-16 NBA season?",
     clues: [
       "In basketball, I set the record for three-pointers in the 2015-16 season",
@@ -35,7 +35,7 @@ const sportsRecords = [
     ]
   },
   {
-    answer: "wayne gretzky",
+    answer: "Wayne Gretzky",
     question: "Who scored 215 points in the 1985-86 NHL season?",
     clues: [
       "In hockey, I set the record for points in the 1985-86 season",
@@ -46,7 +46,7 @@ const sportsRecords = [
     ]
   },
   {
-    answer: "michael jordan",
+    answer: "Michael Jordan",
     question: "Who averaged 37.1 points in the 1986-87 NBA season?",
     clues: [
       "In basketball, I set the record for scoring in the 1986-87 season",
@@ -57,7 +57,7 @@ const sportsRecords = [
     ]
   },
   {
-    answer: "tom brady",
+    answer: "Tom Brady",
     question: "Who threw 50 touchdown passes in the 2007 NFL season?",
     clues: [
       "In football, I set the record for touchdown passes in the 2007 season",
@@ -68,7 +68,7 @@ const sportsRecords = [
     ]
   },
   {
-    answer: "barry bonds",
+    answer: "Barry Bonds",
     question: "Who hit 73 home runs in the 2001 MLB season?",
     clues: [
       "In baseball, I set the record for home runs in the 2001 season",
@@ -79,7 +79,7 @@ const sportsRecords = [
     ]
   },
   {
-    answer: "wilt chamberlain",
+    answer: "Wilt Chamberlain",
     question: "Who averaged 50.4 points in the 1961-62 NBA season?",
     clues: [
       "In basketball, I set the record for scoring in the 1961-62 season",
@@ -93,164 +93,57 @@ const sportsRecords = [
 
 // Players list
 const players = [
-  // Current and historical players (all lowercase to match answers)
-  "aaron judge",
-  "adrian peterson",
-  "barry bonds",
-  "michael jordan",
-  "steph curry",
-  "stephen curry",
-  "tom brady",
-  "wayne gretzky",
-  "wilt chamberlain",
-  
-  // Additional suggestions
-  "lebron james",
-  "Gerrit Cole",
-  "Max Scherzer",
-  "Clayton Kershaw",
-  
-  // Current NBA Players
-  "LeBron James",
-  "Stephen Curry",
-  "Kevin Durant",
-  "Giannis Antetokounmpo",
-  "Nikola Jokic",
-  "Joel Embiid",
-  "Luka Doncic",
-  "Jayson Tatum",
-  "Ja Morant",
-  "Devin Booker",
-
-  // Current NFL Players
-  "Patrick Mahomes",
-  "Josh Allen",
-  "Lamar Jackson",
-  "Justin Jefferson",
-  "Travis Kelce",
-  "Aaron Donald",
-  "T.J. Watt",
-  "Nick Bosa",
-  "Christian McCaffrey",
-  "Derrick Henry",
-  
-  // Current NHL Players
-  "Connor McDavid",
-  "Nathan MacKinnon",
-  "Auston Matthews",
-  "Leon Draisaitl",
-  "Cale Makar",
-  "Sidney Crosby",
-  "Alex Ovechkin",
-  "Nikita Kucherov",
-  "David Pastrnak",
-  "Jack Hughes",
-
-  // Historical Players
+  // Current Players
+  "Aaron Judge",
   "Adrian Peterson",
-  "LeBron James",
-  "Tom Brady",
-  "Michael Jordan",
-  "Wayne Gretzky",
   "Barry Bonds",
-  "Peyton Manning",
-  "Kobe Bryant",
-  "Sidney Crosby",
-  "Derek Jeter",
-  "Jerry Rice",
-  "Kareem Abdul-Jabbar",
-  "Mario Lemieux",
+  "Christian McCaffrey",
+  "Connor McDavid",
+  "Derrick Henry",
+  "Giannis Antetokounmpo",
+  "Joel Embiid",
+  "Kevin Durant",
+  "LeBron James",
+  "Luka Doncic",
+  "Patrick Mahomes",
+  "Shohei Ohtani",
+  "Stephen Curry",
+  "Tom Brady",
+  "Travis Kelce",
+  
+  // Historical Players
   "Babe Ruth",
+  "Jerry Rice",
   "Joe Montana",
-  "Magic Johnson",
-  "Bobby Orr",
-  "Willie Mays",
-  "Emmitt Smith",
-  "Larry Bird",
-  "Gordie Howe",
-  "Hank Aaron",
-  "Walter Payton",
-  "Bill Russell",
-  "Mark Messier",
-  "Pete Rose",
-  "Barry Sanders",
-  "Wilt Chamberlain",
-  "Bobby Hull",
-  "Ted Williams",
-  "Dan Marino",
-  "Oscar Robertson",
-  "Maurice Richard",
-  "Stan Musial",
-  "Jim Brown",
-  "Julius Erving",
-  "Jean Beliveau",
-  "Mickey Mantle",
-  "Johnny Unitas",
-  "Hakeem Olajuwon",
-  "Patrick Roy",
+  "Kareem Abdul-Jabbar",
   "Ken Griffey Jr.",
-  "Lawrence Taylor",
-  "David Robinson",
-  "Martin Brodeur",
-  "Roger Clemens",
-  "Deion Sanders",
-  "Karl Malone",
-  "Bobby Clarke",
-  "Greg Maddux",
-  "Jerry West",
-  "Phil Esposito",
-  "Randy Johnson",
-  "Dick Butkus",
-  "Charles Barkley",
-  "Tony Esposito",
-  "Nolan Ryan",
-  "Reggie White",
-  "Patrick Ewing",
-  "Brett Hull",
-  "Cal Ripken Jr.",
-  "Ray Lewis",
-  "John Stockton",
-  "Chris Chelios",
-  "Pedro Martinez",
-  "Bruce Smith",
-  "Isiah Thomas",
-  "Steve Yzerman",
+  "Larry Bird",
+  "Magic Johnson",
+  "Mario Lemieux",
+  "Michael Jordan",
+  "Muhammad Ali",
+  "Peyton Manning",
+  "Serena Williams",
+  "Tiger Woods",
+  "Wayne Gretzky",
+  "Wilt Chamberlain",
+  "Alex Ovechkin",
+  "Derek Jeter",
+  "Kobe Bryant",
+  "Mike Trout",
+  "Lionel Messi",
+  "Cristiano Ronaldo",
+  "Roger Federer",
+  "Michael Phelps",
+  "Usain Bolt",
+  "Pele",
+  "Willie Mays",
+  "Hank Aaron",
+  "Ted Williams",
+  "Lou Gehrig",
   "Sandy Koufax",
-  "Mean Joe Greene",
-  "Gary Payton",
-  "Scott Stevens",
-  "Tom Seaver",
-  "Jack Lambert",
-  "Clyde Drexler",
-  "Paul Coffey",
-  "Bob Gibson",
-  "Ronnie Lott",
-  "George Gervin",
-  "Mike Bossy",
-  "Bob Feller",
-  "Alan Page",
-  "Dominique Wilkins",
-  "Denis Potvin",
-  "Warren Spahn",
-  "Walter Jones",
-  "James Worthy",
-  "Larry Murphy",
-  "Christy Mathewson",
-  "Anthony Munoz",
-  "Robert Parish",
-  "Luc Robitaille",
-  "Cy Young",
-  "John Hannah",
-  "Alex English",
-  "Grant Fuhr",
-  "Walter Johnson",
-  "Mike Haynes",
-  "Bernard King",
-  "Billy Smith",
-  "Ty Cobb",
-  "Art Shell",
-  "Dave Cowens",
-  "Mike Gartner"
+  "Roberto Clemente",
+  "Ty Cobb"
 ];
 
 // CORS headers
@@ -316,16 +209,27 @@ export default {
         case 'guess': {
           const { guess } = await request.json();
           console.log('Received guess:', guess);
+          
+          // Clean up the guess
+          const cleanGuess = guess.trim();
+          console.log('Clean guess:', cleanGuess);
+          
+          // Get the player name from our list that matches the guess (case insensitive)
+          const matchingPlayer = players.find(p => p.toLowerCase() === cleanGuess.toLowerCase());
+          console.log('Matching player:', matchingPlayer);
           console.log('Current answer:', currentGame.answer);
           
-          // Clean up the guess and answer by removing spaces and making lowercase
-          const cleanGuess = guess.toLowerCase().trim();
-          const cleanAnswer = currentGame.answer.toLowerCase().trim();
-          const correct = cleanGuess === cleanAnswer;
+          // Get the answer from our list that matches the current answer (case insensitive)
+          const correctPlayer = players.find(p => p.toLowerCase() === currentGame.answer.toLowerCase());
+          console.log('Correct player:', correctPlayer);
           
-          console.log('Clean guess:', cleanGuess);
-          console.log('Clean answer:', cleanAnswer);
-          console.log('Is correct:', correct);
+          // Compare the matching player (if found) with the correct player
+          const correct = matchingPlayer && correctPlayer && matchingPlayer.toLowerCase() === correctPlayer.toLowerCase();
+          console.log('Comparison:', {
+            matchingPlayerLower: matchingPlayer?.toLowerCase(),
+            correctPlayerLower: correctPlayer?.toLowerCase(),
+            areEqual: matchingPlayer?.toLowerCase() === correctPlayer?.toLowerCase()
+          });
 
           return new Response(
             JSON.stringify({ correct }),
@@ -339,6 +243,24 @@ export default {
           const randomIndex = Math.floor(Math.random() * sportsRecords.length);
           const newGameId = `${timestamp}-${randomIndex}`;
           console.log('Generated new gameId:', newGameId);
+          
+          // Initialize game state
+          const currentGameState = env.CURRENT_GAME ? JSON.parse(env.CURRENT_GAME) : {};
+          
+          // Get the record and normalize the answer case
+          const record = sportsRecords[randomIndex];
+          const normalizedAnswer = players.find(p => p.toLowerCase() === record.answer.toLowerCase());
+          if (!normalizedAnswer) {
+            console.error('Answer not found in players list:', record.answer);
+          }
+          
+          currentGameState[newGameId] = {
+            ...record,
+            answer: normalizedAnswer || record.answer
+          };
+          
+          env.CURRENT_GAME = JSON.stringify(currentGameState);
+          console.log('New game state:', currentGameState[newGameId]);
           
           return new Response(
             JSON.stringify({ success: true, gameId: newGameId }),

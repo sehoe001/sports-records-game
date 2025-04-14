@@ -50,12 +50,12 @@ function App() {
   }, []);
 
   useEffect(() => {
-    // Only fetch clue when we have a game ID
-    if (gameId) {
+    // Only fetch clue when we have a game ID and haven't won
+    if (gameId && !won) {
       console.log('Fetching clue with gameId:', gameId);
       fetchClue();
     }
-  }, [fetchClue, gameId]);
+  }, [fetchClue, gameId, won]);
 
 
 
@@ -123,6 +123,7 @@ function App() {
       if (data.correct) {
         setWon(true);
         setGameOver(true);
+        setClues(prevClues => [...prevClues, '🎉 Correct! You won!']);
       } else {
         const newAttempts = attempts + 1;
         setAttempts(newAttempts);
