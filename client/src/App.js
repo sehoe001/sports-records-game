@@ -12,6 +12,7 @@ function App() {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [gameId, setGameId] = useState(null);
   const [answer, setAnswer] = useState(null);
+  const [previousGuesses, setPreviousGuesses] = useState([]);
   const maxAttempts = 5;
 
   const fetchClue = useCallback(async () => {
@@ -108,10 +109,17 @@ function App() {
 
   const handleGuess = async (e) => {
     e.preventDefault();
-    if (guess.trim() === '') return;
+    const cleanGuess = guess.trim();
+    if (cleanGuess === '') return;
+
+    // Check if this guess has been made before
+    if (previousGuesses.includes(cleanGuess)) {
+      setClues(prevClues => [...prevClues, '❌ You already tried that name!']);
+      setGuess('');
+      return;
+    }
 
     try {
-      console.log('Submitting guess:', { guess, gameId });
       const response = await fetch('https://sports-records-api.smhoesman.workers.dev/guess', {
         method: 'POST',
         headers: {
@@ -123,7 +131,6 @@ function App() {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
-      console.log('Guess response:', data);
 
       if (data.error) {
         console.error('Server error:', data.error);
@@ -136,8 +143,10 @@ function App() {
         setGameOver(true);
         setClues(prevClues => [...prevClues, '🎉 Correct! You won!']);
         setAttempts(prevAttempts => prevAttempts + 1);
+        setPreviousGuesses(prev => [...prev, cleanGuess]);
         return;
       } else if (data.correct === false) { // Explicitly check for false
+        setPreviousGuesses(prev => [...prev, cleanGuess]);
         setAttempts(prevAttempts => {
           const newAttempts = prevAttempts + 1;
           if (newAttempts >= maxAttempts) {
@@ -231,6 +240,7 @@ function App() {
                   setSuggestions([]);
                   setShowSuggestions(false);
                   setAnswer(null);
+                  setPreviousGuesses([]);
 
                   // Start new game
                   const response = await fetch('https://sports-records-api.smhoesman.workers.dev/new-game', { method: 'POST' });
