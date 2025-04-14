@@ -42,7 +42,7 @@ function App() {
     }
 
     try {
-      const response = await fetch(`https://sports-records-api.smhoesman.workers.dev/search?q=${encodeURIComponent(query)}`);
+      const response = await fetch(`https://sports-records-api.smhoesman.workers.dev/players/search?q=${encodeURIComponent(query)}`);
       const data = await response.json();
       setSuggestions(data.matches);
     } catch (error) {

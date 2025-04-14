@@ -26,8 +26,15 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'Content-Type',
 };
 
+// Initialize game state
+let currentGame = null;
+
 export default {
   async fetch(request, env, ctx) {
+    // Initialize game if not exists
+    if (!currentGame) {
+      currentGame = sportsRecords[Math.floor(Math.random() * sportsRecords.length)];
+    }
     // Handle CORS preflight requests
     if (request.method === 'OPTIONS') {
       return new Response(null, {
@@ -74,7 +81,7 @@ export default {
           );
         }
 
-        case 'search': {
+        case 'players/search': {
           const query = url.searchParams.get('q').toLowerCase();
           const matches = players
             .filter(player => player.toLowerCase().includes(query))
