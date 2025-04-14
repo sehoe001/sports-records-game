@@ -187,8 +187,20 @@ export default {
   async fetch(request, env, ctx) {
     // Get game index from URL
     const requestUrl = new URL(request.url);
-    const gameId = parseInt(requestUrl.searchParams.get('gameId')) || Math.floor(Math.random() * sportsRecords.length);
-    let currentGame = sportsRecords[gameId % sportsRecords.length];
+    const gameId = requestUrl.searchParams.get('gameId');
+    console.log('Received gameId:', gameId);
+    
+    // If no gameId or invalid, use a random game
+    let currentGame;
+    if (!gameId) {
+      currentGame = sportsRecords[Math.floor(Math.random() * sportsRecords.length)];
+    } else {
+      // Use gameId as a seed for random selection
+      const seed = gameId.split('-')[0]; // Use timestamp part as seed
+      const index = parseInt(seed) % sportsRecords.length;
+      currentGame = sportsRecords[index];
+    }
+    console.log('Selected game:', currentGame.answer);
     // Handle CORS preflight requests
     if (request.method === 'OPTIONS') {
       return new Response(null, {
@@ -227,9 +239,11 @@ export default {
         }
 
         case 'new-game': {
-          // Increment game counter
-          gameCounter++;
-          const newGameId = Date.now() + '-' + gameCounter;
+          // Generate a random game ID using timestamp and random number
+          const timestamp = Date.now();
+          const random = Math.floor(Math.random() * 1000000);
+          const newGameId = `${timestamp}-${random}`;
+          console.log('Generated new gameId:', newGameId);
           
           return new Response(
             JSON.stringify({ success: true, gameId: newGameId }),

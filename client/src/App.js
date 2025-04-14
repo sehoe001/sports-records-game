@@ -31,8 +31,27 @@ function App() {
   }, [attempts, maxAttempts, gameId]);
 
   useEffect(() => {
-    fetchClue();
-  }, [fetchClue]);
+    // Start a new game when component mounts
+    const startNewGame = async () => {
+      try {
+        const response = await fetch('https://sports-records-api.smhoesman.workers.dev/new-game', { method: 'POST' });
+        const data = await response.json();
+        console.log('Starting new game with ID:', data.gameId);
+        setGameId(data.gameId);
+      } catch (error) {
+        console.error('Error starting new game:', error);
+      }
+    };
+    startNewGame();
+  }, []);
+
+  useEffect(() => {
+    // Only fetch clue when we have a game ID
+    if (gameId) {
+      console.log('Fetching clue with gameId:', gameId);
+      fetchClue();
+    }
+  }, [fetchClue, gameId]);
 
 
 
@@ -175,13 +194,10 @@ function App() {
                   // Start new game
                   const response = await fetch('https://sports-records-api.smhoesman.workers.dev/new-game', { method: 'POST' });
                   const data = await response.json();
+                  console.log('Starting new game with ID:', data.gameId);
+                  
+                  // Set game ID (this will trigger clue fetch through useEffect)
                   setGameId(data.gameId);
-                  
-                  // Wait a moment for the new game to be set up
-                  await new Promise(resolve => setTimeout(resolve, 100));
-                  
-                  // Fetch first clue
-                  await fetchClue();
                 } catch (error) {
                   console.error('Error starting new game:', error);
                 }
