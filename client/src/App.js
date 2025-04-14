@@ -15,6 +15,7 @@ function App() {
   const [previousGuesses, setPreviousGuesses] = useState([]);
   const [timer, setTimer] = useState(0);
   const [timerInterval, setTimerInterval] = useState(null);
+  const [incorrectAttempts, setIncorrectAttempts] = useState(0);
   const maxAttempts = 5;
 
   const fetchClue = useCallback(async () => {
@@ -155,18 +156,18 @@ function App() {
         setWon(true);
         setGameOver(true);
         setClues(prevClues => [...prevClues, '🎉 Correct! You won!']);
-        setAttempts(prevAttempts => prevAttempts + 1);
         setPreviousGuesses(prev => [...prev, cleanGuess]);
         return;
       } else if (data.correct === false) { // Explicitly check for false
         setPreviousGuesses(prev => [...prev, cleanGuess]);
-        setAttempts(prevAttempts => {
-          const newAttempts = prevAttempts + 1;
-          if (newAttempts >= maxAttempts) {
+        setIncorrectAttempts(prev => {
+          const newIncorrect = prev + 1;
+          if (newIncorrect >= maxAttempts) {
             setGameOver(true);
           }
-          return newAttempts;
+          return newIncorrect;
         });
+        setAttempts(prevAttempts => prevAttempts + 1);
       }
       setGuess('');
     } catch (error) {
@@ -183,7 +184,7 @@ function App() {
               Time: {Math.floor(timer / 60)}:{(timer % 60).toString().padStart(2, '0')}
             </div>
             <div className="lives">
-              Lives: {Array(maxAttempts - attempts).fill('❤️').join('')}
+              Lives: {Array(maxAttempts - incorrectAttempts).fill('❤️').join('')}
             </div>
           </div>
           <h2 className="question">{question}</h2>
@@ -254,6 +255,7 @@ function App() {
                   // Reset all state first
                   setGuess('');
                   setAttempts(0);
+                  setIncorrectAttempts(0);
                   setGameOver(false);
                   setWon(false);
                   setClues([]);
