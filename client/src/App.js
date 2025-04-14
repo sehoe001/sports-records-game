@@ -31,7 +31,7 @@ function App() {
       const data = await response.json();
       console.log('Clue response:', data);
       if (attempts === 0) {
-        setClues([data.clue]);
+        setClues([]);
         setQuestion(data.question);
       } else {
         setClues(prevClues => [...prevClues, data.clue]);
