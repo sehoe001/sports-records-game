@@ -153,13 +153,6 @@ const players = [
   "Jackie Robinson",
   "Jesse Owens",
   "Jack Nicklaus",
-  "Cristiano Ronaldo",
-  "Roger Federer",
-  "Michael Phelps",
-  "Usain Bolt",
-  "Pele",
-  "Willie Mays",
-  "Roberto Clemente",
   "Ty Cobb"
 ];
 
@@ -501,7 +494,16 @@ export default {
         }
 
         case 'guess': {
-          const { guess, gameId } = await request.json();
+          const requestBody = await request.json();
+          const { guess } = requestBody;
+          const gameId = requestBody.gameId;
+          
+          if (!guess) {
+            return new Response(
+              JSON.stringify({ error: 'No guess provided' }),
+              { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+            );
+          }
           console.log('Received guess:', { guess, gameId });
           
           // Get current game state
