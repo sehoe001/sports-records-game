@@ -178,21 +178,21 @@ const findExactPlayer = (answer) => {
 };
 
 const sportsRecords = [
-  // Harder MLB Records
+  // MLB Records
   {
     answer: findExactPlayer("Joe DiMaggio"),
-    question: "Who holds the MLB record with a 56-game hitting streak in 1941?",
+    question: "Who holds the MLB record for longest hitting streak?",
     clues: [
       "This record has stood for over 80 years",
       "I played my entire career for the New York Yankees",
-      "My streak lasted from May 15 to July 16",
+      "My streak lasted from May 15 to July 16, 1941",
       "I was nicknamed 'The Yankee Clipper'",
       "⚾ I hit .408 during this historic streak"
     ]
   },
   {
     answer: findExactPlayer("Sandy Koufax"),
-    question: "Who threw 4 no-hitters in a 4-year span from 1962-1965?",
+    question: "Who holds the record for most no-hitters in a 4-year span?",
     clues: [
       "I was the first MLB pitcher to throw 4 no-hitters",
       "My last no-hitter was a perfect game",
@@ -201,10 +201,10 @@ const sportsRecords = [
       "⚾ I retired at age 30 due to arthritis"
     ]
   },
-  // Harder NBA Records
+  // NBA Records
   {
     answer: findExactPlayer("Wilt Chamberlain"),
-    question: "Who averaged 48.53 minutes per game in the 1961-62 NBA season?",
+    question: "Who holds the NBA record for most minutes per game in a season?",
     clues: [
       "I played more minutes than were available in regulation games",
       "I played every minute of every game, including overtime",
@@ -215,19 +215,19 @@ const sportsRecords = [
   },
   {
     answer: findExactPlayer("Bill Russell"),
-    question: "Who grabbed 51 rebounds in a single NBA game in 1960?",
+    question: "Who holds the NBA record for most rebounds in a single game?",
     clues: [
-      "I set this record against Syracuse on February 5",
+      "I set this record against Syracuse in 1960",
       "I was playing for the Boston Celtics",
       "I averaged 24.7 rebounds per game that season",
       "I won the MVP award that year",
       "🏀 I won 11 championships in my career"
     ]
   },
-  // Harder NFL Records
+  // NFL Records
   {
     answer: findExactPlayer("Jerry Rice"),
-    question: "Who holds the NFL record of 208 consecutive games with a reception?",
+    question: "Who holds the NFL record for most consecutive games with a reception?",
     clues: [
       "This streak spanned from 1985 to 2004",
       "I played primarily for the San Francisco 49ers",
@@ -238,7 +238,7 @@ const sportsRecords = [
   },
   {
     answer: findExactPlayer("Brett Favre"),
-    question: "Who started 297 consecutive regular season games at quarterback?",
+    question: "Who holds the NFL record for most consecutive starts by a quarterback?",
     clues: [
       "This streak lasted from 1992 to 2010",
       "I played most of my career for the Green Bay Packers",
@@ -247,10 +247,10 @@ const sportsRecords = [
       "🏈 I threw 508 career touchdown passes"
     ]
   },
-  // International Soccer Records
+  // Soccer Records
   {
     answer: findExactPlayer("Pele"),
-    question: "Who scored 1,279 goals in 1,363 games, a Guinness World Record?",
+    question: "Who holds the Guinness World Record for most career goals in soccer?",
     clues: [
       "I played primarily for Santos in Brazil",
       "I won three World Cups with Brazil",
@@ -273,7 +273,7 @@ const sportsRecords = [
   // Tennis Records
   {
     answer: findExactPlayer("Serena Williams"),
-    question: "Who won 23 Grand Slam singles titles in the Open Era?",
+    question: "Who holds the Open Era record for most Grand Slam singles titles?",
     clues: [
       "I won my first Grand Slam in 1999",
       "I completed two 'Serena Slams'",
@@ -285,7 +285,7 @@ const sportsRecords = [
   // Track Records
   {
     answer: findExactPlayer("Usain Bolt"),
-    question: "Who holds the 100m world record of 9.58 seconds?",
+    question: "Who holds the world record in the 100m sprint?",
     clues: [
       "I set this record in Berlin in 2009",
       "I'm from Jamaica",
@@ -294,98 +294,6 @@ const sportsRecords = [
       "🏃 I'm known for my 'lightning bolt' pose"
     ]
   },
-  {
-    answer: findExactPlayer("Wilt Chamberlain"),
-    question: "Who averaged 48.53 minutes per game in the 1961-62 NBA season?",
-    clues: [
-      "I played more minutes than were available in regulation games",
-      "I played every minute of every game, including overtime",
-      "This was the same season I averaged 50.4 points per game",
-      "I played for the Philadelphia Warriors",
-      "🏀 This record will likely never be broken"
-    ]
-  },
-  {
-    answer: findExactPlayer("Bill Russell"),
-    question: "Who grabbed 51 rebounds in a single NBA game in 1960?",
-    clues: [
-      "I set this record against Syracuse on February 5",
-      "I was playing for the Boston Celtics",
-      "I averaged 24.7 rebounds per game that season",
-      "I won the MVP award that year",
-      "🏀 I won 11 championships in my career"
-    ]
-  },
-  // Harder NFL Records
-  {
-    answer: findExactPlayer("Jerry Rice"),
-    question: "Who holds the NFL record of 208 consecutive games with a reception?",
-    clues: [
-      "This streak spanned from 1985 to 2004",
-      "I played primarily for the San Francisco 49ers",
-      "I'm considered the greatest receiver of all time",
-      "I was selected to the Pro Bowl 13 times",
-      "🏈 I scored 208 career touchdowns"
-    ]
-  },
-  {
-    answer: findExactPlayer("Brett Favre"),
-    question: "Who started 297 consecutive regular season games at quarterback?",
-    clues: [
-      "This streak lasted from 1992 to 2010",
-      "I played most of my career for the Green Bay Packers",
-      "I won three consecutive NFL MVP awards",
-      "I was known for my ironman streak",
-      "🏈 I threw 508 career touchdown passes"
-    ]
-  },
-  // International Soccer Records
-  {
-    answer: findExactPlayer("Pele"),
-    question: "Who scored 1,279 goals in 1,363 games, a Guinness World Record?",
-    clues: [
-      "I played primarily for Santos in Brazil",
-      "I won three World Cups with Brazil",
-      "I scored my 1000th goal on a penalty kick",
-      "I was named FIFA Player of the Century",
-      "⚽ I was nicknamed 'O Rei' (The King)"
-    ]
-  },
-  {
-    answer: findExactPlayer("Cristiano Ronaldo"),
-    question: "Who holds the record for most international goals in men's soccer?",
-    clues: [
-      "I've scored over 120 goals for my national team",
-      "I've played in 5 World Cups",
-      "I've won 5 Champions League titles",
-      "I play for Portugal",
-      "⚽ I'm known for my 'SIU' celebration"
-    ]
-  },
-  // Tennis Records
-  {
-    answer: findExactPlayer("Serena Williams"),
-    question: "Who won 23 Grand Slam singles titles in the Open Era?",
-    clues: [
-      "I won my first Grand Slam in 1999",
-      "I completed two 'Serena Slams'",
-      "I won four Olympic gold medals",
-      "I won my last major while pregnant",
-      "🎾 I'm considered the greatest female tennis player ever"
-    ]
-  },
-  // Track Records
-  {
-    answer: findExactPlayer("Usain Bolt"),
-    question: "Who holds the 100m world record of 9.58 seconds?",
-    clues: [
-      "I set this record in Berlin in 2009",
-      "I'm from Jamaica",
-      "I won 8 Olympic gold medals",
-      "I'm nicknamed 'Lightning Bolt'",
-      "🏃 I'm known for my 'lightning bolt' pose"
-    ]
-  }
 ];
 
 // CORS headers
