@@ -15,7 +15,7 @@ function App() {
   const fetchClue = useCallback(async () => {
     if (attempts < maxAttempts) {
       try {
-        const response = await fetch(`/api/clue?attempt=${attempts}`);
+        const response = await fetch(`https://sports-records-api.smhoesman.workers.dev/clue?attempt=${attempts}`);
         const data = await response.json();
         if (attempts === 0) {
           setClues([data.clue]);
@@ -42,7 +42,7 @@ function App() {
     }
 
     try {
-      const response = await fetch(`/api/players/search?q=${encodeURIComponent(query)}`);
+      const response = await fetch(`https://sports-records-api.smhoesman.workers.dev/search?q=${encodeURIComponent(query)}`);
       const data = await response.json();
       setSuggestions(data.matches);
     } catch (error) {
@@ -68,7 +68,7 @@ function App() {
     if (guess.trim() === '') return;
 
     try {
-      const response = await fetch('/api/guess', {
+      const response = await fetch('https://sports-records-api.smhoesman.workers.dev/guess', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -142,7 +142,7 @@ function App() {
               <h2>{won ? 'Congratulations! You won!' : 'Game Over!'}</h2>
               <button onClick={async () => {
                 try {
-                  await fetch('/api/new-game', { method: 'POST' });
+                  await fetch('https://sports-records-api.smhoesman.workers.dev/new-game', { method: 'POST' });
                   setGuess('');
                   setAttempts(0);
                   setGameOver(false);

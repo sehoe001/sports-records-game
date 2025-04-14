@@ -1,0 +1,7 @@
+name = "sports-records-api"
+main = "src/index.js"
+compatibility_date = "2025-04-14"
+
+# Variable for storing game state
+[vars]
+CURRENT_GAME = "{}"
