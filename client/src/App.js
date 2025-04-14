@@ -14,7 +14,7 @@ function App() {
   const maxAttempts = 5;
 
   const fetchClue = useCallback(async () => {
-    if (attempts < maxAttempts) {
+    if (!won && attempts < maxAttempts) {
       try {
         const response = await fetch(`https://sports-records-api.smhoesman.workers.dev/clue?attempt=${attempts}&gameId=${gameId || ''}`);
         const data = await response.json();
@@ -32,7 +32,7 @@ function App() {
         console.error('Error fetching clue:', error);
       }
     }
-  }, [attempts, maxAttempts, gameId]);
+  }, [attempts, maxAttempts, gameId, won]);
 
   useEffect(() => {
     // Start a new game when component mounts
@@ -50,12 +50,12 @@ function App() {
   }, []);
 
   useEffect(() => {
-    // Only fetch clue when we have a game ID and haven't won
-    if (gameId && !won) {
+    // Only fetch clue when we have a game ID
+    if (gameId) {
       console.log('Fetching clue with gameId:', gameId);
       fetchClue();
     }
-  }, [fetchClue, gameId, won]);
+  }, [fetchClue, gameId]);
 
 
 
@@ -125,11 +125,13 @@ function App() {
         setGameOver(true);
         setClues(prevClues => [...prevClues, '🎉 Correct! You won!']);
       } else {
-        const newAttempts = attempts + 1;
-        setAttempts(newAttempts);
-        if (newAttempts >= maxAttempts) {
-          setGameOver(true);
-        }
+        setAttempts(prevAttempts => {
+          const newAttempts = prevAttempts + 1;
+          if (newAttempts >= maxAttempts) {
+            setGameOver(true);
+          }
+          return newAttempts;
+        });
       }
       setGuess('');
     } catch (error) {
