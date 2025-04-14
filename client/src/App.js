@@ -10,12 +10,13 @@ function App() {
   const [won, setWon] = useState(false);
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [gameId, setGameId] = useState(null);
   const maxAttempts = 5;
 
   const fetchClue = useCallback(async () => {
     if (attempts < maxAttempts) {
       try {
-        const response = await fetch(`https://sports-records-api.smhoesman.workers.dev/clue?attempt=${attempts}`);
+        const response = await fetch(`https://sports-records-api.smhoesman.workers.dev/clue?attempt=${attempts}&gameId=${gameId || ''}`);
         const data = await response.json();
         if (attempts === 0) {
           setClues([data.clue]);
@@ -27,7 +28,7 @@ function App() {
         console.error('Error fetching clue:', error);
       }
     }
-  }, [attempts, maxAttempts]);
+  }, [attempts, maxAttempts, gameId]);
 
   useEffect(() => {
     fetchClue();
@@ -92,7 +93,7 @@ function App() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ guess }),
+        body: JSON.stringify({ guess, gameId }),
       });
       const data = await response.json();
 
@@ -161,14 +162,26 @@ function App() {
               <h2>{won ? 'Congratulations! You won!' : 'Game Over!'}</h2>
               <button onClick={async () => {
                 try {
-                  await fetch('https://sports-records-api.smhoesman.workers.dev/new-game', { method: 'POST' });
+                  // Reset all state first
                   setGuess('');
                   setAttempts(0);
                   setGameOver(false);
                   setWon(false);
                   setClues([]);
                   setQuestion('');
-                  fetchClue();
+                  setSuggestions([]);
+                  setShowSuggestions(false);
+
+                  // Start new game
+                  const response = await fetch('https://sports-records-api.smhoesman.workers.dev/new-game', { method: 'POST' });
+                  const data = await response.json();
+                  setGameId(data.gameId);
+                  
+                  // Wait a moment for the new game to be set up
+                  await new Promise(resolve => setTimeout(resolve, 100));
+                  
+                  // Fetch first clue
+                  await fetchClue();
                 } catch (error) {
                   console.error('Error starting new game:', error);
                 }

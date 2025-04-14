@@ -1,4 +1,5 @@
 // Game data
+let gameCounter = 0;
 const sportsRecords = [
   {
     answer: "adrian peterson",
@@ -16,6 +17,59 @@ const sportsRecords = [
 
 // Players list
 const players = [
+  // Current MLB Players
+  "Aaron Judge",
+  "Shohei Ohtani",
+  "Mike Trout",
+  "Giancarlo Stanton",
+  "Mookie Betts",
+  "Juan Soto",
+  "Ronald Acuña Jr.",
+  "Freddie Freeman",
+  "Bryce Harper",
+  "Fernando Tatis Jr.",
+  "Jacob deGrom",
+  "Gerrit Cole",
+  "Max Scherzer",
+  "Clayton Kershaw",
+  
+  // Current NBA Players
+  "LeBron James",
+  "Stephen Curry",
+  "Kevin Durant",
+  "Giannis Antetokounmpo",
+  "Nikola Jokic",
+  "Joel Embiid",
+  "Luka Doncic",
+  "Jayson Tatum",
+  "Ja Morant",
+  "Devin Booker",
+
+  // Current NFL Players
+  "Patrick Mahomes",
+  "Josh Allen",
+  "Lamar Jackson",
+  "Justin Jefferson",
+  "Travis Kelce",
+  "Aaron Donald",
+  "T.J. Watt",
+  "Nick Bosa",
+  "Christian McCaffrey",
+  "Derrick Henry",
+  
+  // Current NHL Players
+  "Connor McDavid",
+  "Nathan MacKinnon",
+  "Auston Matthews",
+  "Leon Draisaitl",
+  "Cale Makar",
+  "Sidney Crosby",
+  "Alex Ovechkin",
+  "Nikita Kucherov",
+  "David Pastrnak",
+  "Jack Hughes",
+
+  // Historical Players
   "Adrian Peterson",
   "LeBron James",
   "Tom Brady",
@@ -129,15 +183,12 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'Content-Type',
 };
 
-// Initialize game state
-let currentGame = null;
-
 export default {
   async fetch(request, env, ctx) {
-    // Initialize game if not exists
-    if (!currentGame) {
-      currentGame = sportsRecords[Math.floor(Math.random() * sportsRecords.length)];
-    }
+    // Get game index from URL
+    const requestUrl = new URL(request.url);
+    const gameId = parseInt(requestUrl.searchParams.get('gameId')) || Math.floor(Math.random() * sportsRecords.length);
+    let currentGame = sportsRecords[gameId % sportsRecords.length];
     // Handle CORS preflight requests
     if (request.method === 'OPTIONS') {
       return new Response(null, {
@@ -145,13 +196,12 @@ export default {
       });
     }
 
-    const url = new URL(request.url);
-    const path = url.pathname.split('/').pop();
+    const path = requestUrl.pathname.slice(1); // Remove leading slash
 
     try {
       switch (path) {
         case 'clue': {
-          const attempt = parseInt(url.searchParams.get('attempt'));
+          const attempt = parseInt(requestUrl.searchParams.get('attempt'));
           if (attempt >= 0 && attempt < currentGame.clues.length) {
             return new Response(
               JSON.stringify({
@@ -177,16 +227,19 @@ export default {
         }
 
         case 'new-game': {
-          currentGame = sportsRecords[Math.floor(Math.random() * sportsRecords.length)];
+          // Increment game counter
+          gameCounter++;
+          const newGameId = Date.now() + '-' + gameCounter;
+          
           return new Response(
-            JSON.stringify({ success: true }),
+            JSON.stringify({ success: true, gameId: newGameId }),
             { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
           );
         }
 
         case 'players/search': {
           try {
-            const query = url.searchParams.get('q');
+            const query = requestUrl.searchParams.get('q');
             if (!query) {
               return new Response(
                 JSON.stringify({ matches: [] }),
