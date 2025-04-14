@@ -10,45 +10,149 @@ const initializeWorkerState = (env) => {
 
 // Players list
 const players = [
-  // Current Players
-  "Aaron Judge",
-  "Adrian Peterson",
-  "Barry Bonds",
-  "Christian McCaffrey",
-  "Connor McDavid",
-  "Derrick Henry",
+  // Current NBA Players
   "Giannis Antetokounmpo",
-  "Joel Embiid",
-  "Kevin Durant",
   "LeBron James",
-  "Luka Doncic",
-  "Patrick Mahomes",
-  "Shohei Ohtani",
   "Stephen Curry",
-  "Tom Brady",
-  "Travis Kelce",
+  "Kevin Durant",
+  "Joel Embiid",
+  "Luka Doncic",
+  "Jayson Tatum",
+  "Ja Morant",
+  "Nikola Jokic",
+  "Devin Booker",
+  "Damian Lillard",
+  "Trae Young",
+  "Anthony Davis",
+  "Jimmy Butler",
   
-  // Historical Players
-  "Babe Ruth",
+  // Current NFL Players
+  "Patrick Mahomes",
+  "Travis Kelce",
+  "Christian McCaffrey",
+  "Justin Jefferson",
+  "Derrick Henry",
+  "Josh Allen",
+  "Jalen Hurts",
+  "Nick Bosa",
+  "Aaron Donald",
+  "Micah Parsons",
+  "Lamar Jackson",
+  "Justin Herbert",
+  "Joe Burrow",
+  "Cooper Kupp",
+  
+  // Current MLB Players
+  "Aaron Judge",
+  "Shohei Ohtani",
+  "Mike Trout",
+  "Mookie Betts",
+  "Juan Soto",
+  "Ronald Acuna Jr.",
+  "Freddie Freeman",
+  "Trea Turner",
+  "Jose Ramirez",
+  "Corbin Burnes",
+  "Jacob deGrom",
+  "Gerrit Cole",
+  "Fernando Tatis Jr.",
+  "Bryce Harper",
+  
+  // Current NHL Players
+  "Connor McDavid",
+  "Alex Ovechkin",
+  "Nathan MacKinnon",
+  "Auston Matthews",
+  "Sidney Crosby",
+  "Leon Draisaitl",
+  "Cale Makar",
+  "David Pastrnak",
+  "Nikita Kucherov",
+  "Artemi Panarin",
+  "Jack Hughes",
+  "Roman Josi",
+  "Igor Shesterkin",
+  "Andrei Vasilevskiy",
+  
+  // Historical NBA Players
+  "Michael Jordan",
+  "Kobe Bryant",
+  "Magic Johnson",
+  "Larry Bird",
+  "Kareem Abdul-Jabbar",
+  "Wilt Chamberlain",
+  "Bill Russell",
+  "Tim Duncan",
+  "Hakeem Olajuwon",
+  "Shaquille O'Neal",
+  "Karl Malone",
+  "Charles Barkley",
+  "David Robinson",
+  "Allen Iverson",
+  
+  // Historical NFL Players
+  "Tom Brady",
   "Jerry Rice",
   "Joe Montana",
-  "Kareem Abdul-Jabbar",
-  "Ken Griffey Jr.",
-  "Larry Bird",
-  "Magic Johnson",
-  "Mario Lemieux",
-  "Michael Jordan",
-  "Muhammad Ali",
   "Peyton Manning",
-  "Serena Williams",
-  "Tiger Woods",
-  "Wayne Gretzky",
-  "Wilt Chamberlain",
-  "Alex Ovechkin",
+  "Barry Sanders",
+  "Lawrence Taylor",
+  "Walter Payton",
+  "John Elway",
+  "Reggie White",
+  "Dan Marino",
+  "Adrian Peterson",
+  "Brett Favre",
+  "Randy Moss",
+  "Deion Sanders",
+  
+  // Historical MLB Players
+  "Barry Bonds",
+  "Babe Ruth",
+  "Willie Mays",
+  "Hank Aaron",
+  "Ken Griffey Jr.",
   "Derek Jeter",
-  "Kobe Bryant",
-  "Mike Trout",
+  "Ted Williams",
+  "Mickey Mantle",
+  "Stan Musial",
+  "Roberto Clemente",
+  "Sandy Koufax",
+  "Greg Maddux",
+  "Pedro Martinez",
+  "Randy Johnson",
+  
+  // Historical NHL Players
+  "Wayne Gretzky",
+  "Mario Lemieux",
+  "Gordie Howe",
+  "Bobby Orr",
+  "Maurice Richard",
+  "Mark Messier",
+  "Bobby Hull",
+  "Jean Beliveau",
+  "Patrick Roy",
+  "Martin Brodeur",
+  "Steve Yzerman",
+  "Joe Sakic",
+  "Jaromir Jagr",
+  "Dominik Hasek",
+  
+  // Other Sports Legends
+  "Muhammad Ali",
+  "Tiger Woods",
+  "Serena Williams",
   "Lionel Messi",
+  "Cristiano Ronaldo",
+  "Pele",
+  "Diego Maradona",
+  "Roger Federer",
+  "Rafael Nadal",
+  "Michael Phelps",
+  "Usain Bolt",
+  "Jackie Robinson",
+  "Jesse Owens",
+  "Jack Nicklaus",
   "Cristiano Ronaldo",
   "Roger Federer",
   "Michael Phelps",
@@ -62,93 +166,89 @@ const players = [
 // Normalize the answers to match the player list exactly
 const findExactPlayer = (answer) => {
   if (!answer) {
-    console.error('Invalid answer:', answer);
     return null;
   }
 
   // First try exact match
   const exactMatch = players.find(p => p === answer);
   if (exactMatch) {
-    console.log('Found exact match:', exactMatch);
     return exactMatch;
   }
   
   // Try case-insensitive match
   const normalizedMatch = players.find(p => p.toLowerCase() === answer.toLowerCase());
   if (normalizedMatch) {
-    console.log('Found case-insensitive match:', normalizedMatch);
     return normalizedMatch;
   }
   
-  console.error('Player not found in list:', answer);
-  return answer;
+  return null;
 };
 
 const sportsRecords = [
   {
     answer: findExactPlayer("Adrian Peterson"),
-    question: "Who had the most rushing yards in the 2012 NFL season?",
+    question: "Who led the NFL in rushing yards in 2012?",
     clues: [
-      "In football, I set the record for rushing yards in the 2012 season",
+      "I rushed for 2,097 yards this season",
       "I played for the Minnesota Vikings",
       "I was named MVP after returning from an ACL injury",
-      "I rushed for 2,097 yards in 2012",
-      "🏈 I averaged 6.0 yards per carry in 2012"
+      "I averaged 6.0 yards per carry",
+      "🏈 I had twelve 100+ yard rushing games"
     ]
   },
   {
     answer: findExactPlayer("Aaron Judge"),
-    question: "Who hit 62 home runs in the 2022 MLB season?",
+    question: "Who led the American League in home runs in 2022?",
     clues: [
-      "In baseball, I set the record for home runs in the 2022 season",
+      "I hit 62 home runs this season",
       "I played for the New York Yankees",
-      "I was named MVP and broke Roger Maris' record",
-      "I hit 62 home runs in 2022",
-      "⚾ I also led the league in RBIs and runs in 2022"
+      "I was named AL MVP this season",
+      "I broke Roger Maris' AL record",
+      "⚾ I also led the league with 131 RBIs"
     ]
   },
   {
     answer: findExactPlayer("Stephen Curry"),
-    question: "Who made 402 three-pointers in the 2015-16 NBA season?",
+    question: "Who led the NBA in three-pointers made in 2015-16?",
     clues: [
-      "In basketball, I set the record for three-pointers in the 2015-16 season",
+      "I made 402 three-pointers this season",
       "I played for the Golden State Warriors",
       "I was unanimously named MVP this season",
-      "I made 402 three-pointers in 2015-16",
-      "🏀 My team won a record 73 games in 2015-16"
+      "My team won a record 73 games",
+      "🏀 I averaged 30.1 points per game"
     ]
   },
   {
     answer: findExactPlayer("Wayne Gretzky"),
-    question: "Who scored 215 points in the 1985-86 NHL season?",
+    question: "Who led the NHL in points in 1985-86?",
     clues: [
-      "In hockey, I set the record for points in the 1985-86 season",
+      "I scored 215 points this season",
       "I played for the Edmonton Oilers",
       "I won the Hart Trophy as league MVP",
-      "I scored 215 points in 1985-86",
-      "🏒 I had 163 assists in 1985-86, also a record"
+      "I had 163 assists that season",
+      "🏒 This was one of my four 200+ point seasons"
     ]
   },
   {
     answer: findExactPlayer("Michael Jordan"),
-    question: "Who averaged 37.1 points in the 1986-87 NBA season?",
+    question: "Who led the NBA in scoring in 1986-87?",
     clues: [
-      "In basketball, I set the record for scoring in the 1986-87 season",
+      "I averaged 37.1 points per game",
       "I played for the Chicago Bulls",
-      "I won the scoring title this season",
-      "I averaged 37.1 points per game in 1986-87",
-      "🏀 I scored 3,041 points in 1986-87"
+      "I won my first of ten scoring titles",
+      "I scored 3,041 total points",
+      "🏀 I also averaged 2.9 steals per game"
     ]
   },
   {
     answer: findExactPlayer("Tom Brady"),
-    question: "Who threw 50 touchdown passes in the 2007 NFL season?",
+    question: "Who led the NFL in touchdown passes in 2007?",
     clues: [
-      "In football, I set the record for touchdown passes in the 2007 season",
+      "I threw 50 touchdown passes this season",
       "I played for the New England Patriots",
-      "I was named MVP in an undefeated regular season",
-      "I threw 50 touchdown passes in 2007",
-      "🏈 I led my team to a 16-0 record in 2007"
+      "I was named MVP that season",
+      "I led my team to a 16-0 record",
+      "🏈 I also threw for 4,806 yards"
     ]
   },
   {
@@ -192,20 +292,48 @@ export default {
     const gameId = requestUrl.searchParams.get('gameId');
     console.log('Received gameId:', gameId);
     
-    // If no gameId or invalid, use a random game
+    // Initialize worker state if needed
+    let currentGameState;
+    try {
+      currentGameState = env.CURRENT_GAME ? JSON.parse(env.CURRENT_GAME) : {};
+    } catch (error) {
+      console.error('Error parsing game state:', error);
+      currentGameState = {};
+    }
+
+    // If no gameId, create a new random game
     let currentGame;
     if (!gameId) {
-      currentGame = sportsRecords[Math.floor(Math.random() * sportsRecords.length)];
+      const randomIndex = Math.floor(Math.random() * sportsRecords.length);
+      const record = sportsRecords[randomIndex];
+      currentGame = {
+        ...record,
+        answer: findExactPlayer(record.answer)
+      };
     } else {
       // Get the game from stored state
-      const currentGameState = env.CURRENT_GAME ? JSON.parse(env.CURRENT_GAME) : {};
+      console.log('Looking for game:', {
+        gameId,
+        allGames: Object.keys(currentGameState),
+        targetGame: currentGameState[gameId]
+      });
       currentGame = currentGameState[gameId];
       
       // Fallback to sportsRecords if game not found in state
       if (!currentGame) {
+        console.log('Game not found in state, using fallback');
         const random = parseInt(gameId.split('-')[1]);
         const index = random % sportsRecords.length;
-        currentGame = sportsRecords[index];
+        const record = sportsRecords[index];
+        // Make sure to normalize the answer
+        currentGame = {
+          ...record,
+          answer: findExactPlayer(record.answer)
+        };
+        // Store the fallback game in state
+        currentGameState[gameId] = currentGame;
+        env.CURRENT_GAME = JSON.stringify(currentGameState);
+        console.log('Created and stored fallback game:', currentGame);
       }
     }
     console.log('Selected game:', currentGame?.answer);
@@ -254,8 +382,25 @@ export default {
         }
 
         case 'guess': {
-          const { guess } = await request.json();
-          console.log('Received guess:', guess);
+          const { guess, gameId } = await request.json();
+          console.log('Received guess:', { guess, gameId });
+          
+          // Get current game state
+          let currentGameState;
+          try {
+            currentGameState = env.CURRENT_GAME ? JSON.parse(env.CURRENT_GAME) : {};
+          } catch (error) {
+            console.error('Error parsing game state:', error);
+            currentGameState = {};
+          }
+          
+          // Get the game from stored state
+          console.log('Looking for game:', {
+            gameId,
+            allGames: Object.keys(currentGameState),
+            targetGame: currentGameState[gameId]
+          });
+          const currentGame = currentGameState[gameId];
           
           // Verify we have a valid game state
           if (!currentGame || !currentGame.answer) {
@@ -270,28 +415,48 @@ export default {
           const cleanGuess = guess.trim();
           console.log('Clean guess:', cleanGuess);
           
-          // Normalize both the guess and the current answer
+          // Normalize the guess - the answer is already normalized
           const normalizedGuess = findExactPlayer(cleanGuess);
-          const normalizedAnswer = findExactPlayer(currentGame.answer);
+          console.log('Normalized guess:', { cleanGuess, normalizedGuess });
           
-          console.log('Normalized values:', {
-            originalGuess: cleanGuess,
-            normalizedGuess,
-            originalAnswer: currentGame.answer,
+          // Get the normalized answer from the current game
+          const normalizedAnswer = findExactPlayer(currentGame.answer);
+          console.log('Normalized answer:', { 
+            storedAnswer: currentGame.answer, 
             normalizedAnswer,
-            guessType: typeof normalizedGuess,
-            answerType: typeof normalizedAnswer
+            storedType: typeof currentGame.answer,
+            storedLength: currentGame.answer?.length,
+            storedChars: currentGame.answer ? [...currentGame.answer].map(c => c.charCodeAt(0)) : null
           });
           
-          // Compare the normalized versions
-          const guessIsCorrect = normalizedGuess && normalizedAnswer && 
-            normalizedGuess.toLowerCase() === normalizedAnswer.toLowerCase();
+          // If either guess or answer is invalid, return false
+          if (!normalizedGuess || !normalizedAnswer) {
+            console.log('Invalid guess or answer - not found in players list');
+            return new Response(
+              JSON.stringify({ correct: false }),
+              { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+            );
+          }
           
-          console.log('Comparison result:', {
+          // Compare the normalized values
+          const guessIsCorrect = normalizedGuess === normalizedAnswer;
+          
+          console.log('Full comparison:', {
+            gameId,
+            currentGame,
+            cleanGuess,
             normalizedGuess,
+            storedAnswer: currentGame.answer,
             normalizedAnswer,
-            currentGameAnswer: currentGame.answer,
-            areEqual: guessIsCorrect
+            guessIsCorrect,
+            guessChars: [...normalizedGuess].map(c => c.charCodeAt(0)),
+            answerChars: [...normalizedAnswer].map(c => c.charCodeAt(0))
+          });
+          
+          console.log('Result:', {
+            guessIsCorrect,
+            guessType: typeof normalizedGuess,
+            answerType: typeof currentGame.answer
           });
 
           return new Response(
@@ -319,13 +484,23 @@ export default {
           console.log('Normalized answer:', normalizedAnswer);
           
           // Store the game state with the normalized answer
-          currentGameState[newGameId] = {
+          const newGameState = {
             ...record,
             answer: normalizedAnswer
           };
           
+          // Store the new game
+          currentGameState[newGameId] = newGameState;
+          
+          // Update the worker state
           env.CURRENT_GAME = JSON.stringify(currentGameState);
-          console.log('New game state:', currentGameState[newGameId]);
+          console.log('New game created:', {
+            gameId: newGameId,
+            answer: normalizedAnswer,
+            originalAnswer: record.answer,
+            state: newGameState,
+            allGames: Object.keys(currentGameState)
+          });
           
           return new Response(
             JSON.stringify({ success: true, gameId: newGameId }),
@@ -358,7 +533,6 @@ export default {
             { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
           );
           } catch (error) {
-            console.error('Search error:', error);
             return new Response(
               JSON.stringify({ matches: [], error: 'Search failed' }),
               { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
