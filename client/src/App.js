@@ -15,21 +15,16 @@ function App() {
   const maxAttempts = 5;
 
   const fetchClue = useCallback(async () => {
-    console.log('fetchClue called with:', { attempts, maxAttempts, gameId, won, gameOver });
     if (won || gameOver) {
-      console.log('Game is won or over, skipping clue fetch');
       return;
     }
     if (attempts >= maxAttempts) {
-      console.log('Max attempts reached, skipping clue fetch');
       setGameOver(true);
       return;
     }
     try {
-      console.log('Fetching clue...');
       const response = await fetch(`https://sports-records-api.smhoesman.workers.dev/clue?attempt=${attempts}&gameId=${gameId || ''}`);
       const data = await response.json();
-      console.log('Clue response:', data);
       if (attempts === 0) {
         setClues([]);
         setQuestion(data.question);
@@ -41,7 +36,6 @@ function App() {
         }
       }
     } catch (error) {
-      console.error('Error fetching clue:', error);
     }
   }, [attempts, maxAttempts, gameId, won, gameOver]);
 
@@ -51,10 +45,8 @@ function App() {
       try {
         const response = await fetch('https://sports-records-api.smhoesman.workers.dev/new-game', { method: 'POST' });
         const data = await response.json();
-        console.log('Starting new game with ID:', data.gameId);
         setGameId(data.gameId);
       } catch (error) {
-        console.error('Error starting new game:', error);
       }
     };
     startNewGame();
@@ -63,7 +55,6 @@ function App() {
   useEffect(() => {
     // Only fetch clue when we have a game ID
     if (gameId) {
-      console.log('Fetching clue with gameId:', gameId);
       fetchClue();
     }
   }, [fetchClue, gameId, gameOver]);
@@ -88,7 +79,6 @@ function App() {
         setSuggestions([]);
       }
     } catch (error) {
-      console.error('Error fetching suggestions:', error);
       setSuggestions([]);
     }
   };
@@ -105,7 +95,6 @@ function App() {
         setShowSuggestions(false);
       }
     } catch (error) {
-      console.error('Error in input change:', error);
       setSuggestions([]);
       setShowSuggestions(false);
     }
@@ -150,10 +139,8 @@ function App() {
         // Don't increment attempts on correct guess
         return;
       } else if (data.correct === false) { // Explicitly check for false
-        console.log('Incorrect guess, incrementing attempts...');
         setAttempts(prevAttempts => {
           const newAttempts = prevAttempts + 1;
-          console.log('New attempts:', newAttempts);
           if (newAttempts >= maxAttempts) {
             setGameOver(true);
           }
@@ -162,7 +149,6 @@ function App() {
       }
       setGuess('');
     } catch (error) {
-      console.error('Error submitting guess:', error);
     }
   };
 
@@ -250,12 +236,9 @@ function App() {
                   // Start new game
                   const response = await fetch('https://sports-records-api.smhoesman.workers.dev/new-game', { method: 'POST' });
                   const data = await response.json();
-                  console.log('Starting new game with ID:', data.gameId);
-                  
                   // Set game ID (this will trigger clue fetch through useEffect)
                   setGameId(data.gameId);
                 } catch (error) {
-                  console.error('Error starting new game:', error);
                 }
               }}>Play Again</button>
             </div>
