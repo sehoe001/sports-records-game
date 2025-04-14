@@ -14,9 +14,112 @@ const sportsRecords = [
   // Copy all other records from server.js here
 ];
 
-// Players list (copy from server.js)
+// Players list
 const players = [
-  // Copy all players from server.js here
+  "Adrian Peterson",
+  "LeBron James",
+  "Tom Brady",
+  "Michael Jordan",
+  "Wayne Gretzky",
+  "Barry Bonds",
+  "Peyton Manning",
+  "Kobe Bryant",
+  "Sidney Crosby",
+  "Derek Jeter",
+  "Jerry Rice",
+  "Kareem Abdul-Jabbar",
+  "Mario Lemieux",
+  "Babe Ruth",
+  "Joe Montana",
+  "Magic Johnson",
+  "Bobby Orr",
+  "Willie Mays",
+  "Emmitt Smith",
+  "Larry Bird",
+  "Gordie Howe",
+  "Hank Aaron",
+  "Walter Payton",
+  "Bill Russell",
+  "Mark Messier",
+  "Pete Rose",
+  "Barry Sanders",
+  "Wilt Chamberlain",
+  "Bobby Hull",
+  "Ted Williams",
+  "Dan Marino",
+  "Oscar Robertson",
+  "Maurice Richard",
+  "Stan Musial",
+  "Jim Brown",
+  "Julius Erving",
+  "Jean Beliveau",
+  "Mickey Mantle",
+  "Johnny Unitas",
+  "Hakeem Olajuwon",
+  "Patrick Roy",
+  "Ken Griffey Jr.",
+  "Lawrence Taylor",
+  "David Robinson",
+  "Martin Brodeur",
+  "Roger Clemens",
+  "Deion Sanders",
+  "Karl Malone",
+  "Bobby Clarke",
+  "Greg Maddux",
+  "Jerry West",
+  "Phil Esposito",
+  "Randy Johnson",
+  "Dick Butkus",
+  "Charles Barkley",
+  "Tony Esposito",
+  "Nolan Ryan",
+  "Reggie White",
+  "Patrick Ewing",
+  "Brett Hull",
+  "Cal Ripken Jr.",
+  "Ray Lewis",
+  "John Stockton",
+  "Chris Chelios",
+  "Pedro Martinez",
+  "Bruce Smith",
+  "Isiah Thomas",
+  "Steve Yzerman",
+  "Sandy Koufax",
+  "Mean Joe Greene",
+  "Gary Payton",
+  "Scott Stevens",
+  "Tom Seaver",
+  "Jack Lambert",
+  "Clyde Drexler",
+  "Paul Coffey",
+  "Bob Gibson",
+  "Ronnie Lott",
+  "George Gervin",
+  "Mike Bossy",
+  "Bob Feller",
+  "Alan Page",
+  "Dominique Wilkins",
+  "Denis Potvin",
+  "Warren Spahn",
+  "Walter Jones",
+  "James Worthy",
+  "Larry Murphy",
+  "Christy Mathewson",
+  "Anthony Munoz",
+  "Robert Parish",
+  "Luc Robitaille",
+  "Cy Young",
+  "John Hannah",
+  "Alex English",
+  "Grant Fuhr",
+  "Walter Johnson",
+  "Mike Haynes",
+  "Bernard King",
+  "Billy Smith",
+  "Ty Cobb",
+  "Art Shell",
+  "Dave Cowens",
+  "Mike Gartner"
 ];
 
 // CORS headers
@@ -82,12 +185,20 @@ export default {
         }
 
         case 'players/search': {
-          const query = url.searchParams.get('q').toLowerCase();
-          const matches = players
-            .filter(player => player.toLowerCase().includes(query))
+          try {
+            const query = url.searchParams.get('q');
+            if (!query) {
+              return new Response(
+                JSON.stringify({ matches: [] }),
+                { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+              );
+            }
+            const queryLower = query.toLowerCase();
+            const matches = players
+            .filter(player => player.toLowerCase().includes(queryLower))
             .sort((a, b) => {
-              const aStartsWith = a.toLowerCase().startsWith(query);
-              const bStartsWith = b.toLowerCase().startsWith(query);
+              const aStartsWith = a.toLowerCase().startsWith(queryLower);
+              const bStartsWith = b.toLowerCase().startsWith(queryLower);
               if (aStartsWith && !bStartsWith) return -1;
               if (!aStartsWith && bStartsWith) return 1;
               return a.localeCompare(b);
@@ -97,6 +208,13 @@ export default {
             JSON.stringify({ matches }),
             { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
           );
+          } catch (error) {
+            console.error('Search error:', error);
+            return new Response(
+              JSON.stringify({ matches: [], error: 'Search failed' }),
+              { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+            );
+          }
         }
 
         default:

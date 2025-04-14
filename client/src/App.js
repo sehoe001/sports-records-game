@@ -36,25 +36,44 @@ function App() {
 
 
   const fetchSuggestions = async (query) => {
-    if (query.trim() === '') {
-      setSuggestions([]);
-      return;
-    }
-
     try {
+      if (!query || query.trim() === '') {
+        setSuggestions([]);
+        return;
+      }
+
       const response = await fetch(`https://sports-records-api.smhoesman.workers.dev/players/search?q=${encodeURIComponent(query)}`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
       const data = await response.json();
-      setSuggestions(data.matches);
+      if (Array.isArray(data.matches)) {
+        setSuggestions(data.matches);
+      } else {
+        setSuggestions([]);
+      }
     } catch (error) {
       console.error('Error fetching suggestions:', error);
+      setSuggestions([]);
     }
   };
 
   const handleInputChange = (e) => {
-    const value = e.target.value;
-    setGuess(value);
-    fetchSuggestions(value);
-    setShowSuggestions(true);
+    try {
+      const value = e.target.value;
+      setGuess(value);
+      if (value.trim()) {
+        fetchSuggestions(value);
+        setShowSuggestions(true);
+      } else {
+        setSuggestions([]);
+        setShowSuggestions(false);
+      }
+    } catch (error) {
+      console.error('Error in input change:', error);
+      setSuggestions([]);
+      setShowSuggestions(false);
+    }
   };
 
   const handleSuggestionClick = (suggestion) => {
