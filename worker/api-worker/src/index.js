@@ -185,92 +185,212 @@ const findExactPlayer = (answer) => {
 };
 
 const sportsRecords = [
+  // Harder MLB Records
   {
-    answer: findExactPlayer("Adrian Peterson"),
-    question: "Who led the NFL in rushing yards in 2012?",
+    answer: findExactPlayer("Joe DiMaggio"),
+    question: "Who holds the MLB record with a 56-game hitting streak in 1941?",
     clues: [
-      "I rushed for 2,097 yards this season",
-      "I played for the Minnesota Vikings",
-      "I was named MVP after returning from an ACL injury",
-      "I averaged 6.0 yards per carry",
-      "🏈 I had twelve 100+ yard rushing games"
+      "This record has stood for over 80 years",
+      "I played my entire career for the New York Yankees",
+      "My streak lasted from May 15 to July 16",
+      "I was nicknamed 'The Yankee Clipper'",
+      "⚾ I hit .408 during this historic streak"
     ]
   },
   {
-    answer: findExactPlayer("Aaron Judge"),
-    question: "Who led the American League in home runs in 2022?",
+    answer: findExactPlayer("Sandy Koufax"),
+    question: "Who threw 4 no-hitters in a 4-year span from 1962-1965?",
     clues: [
-      "I hit 62 home runs this season",
-      "I played for the New York Yankees",
-      "I was named AL MVP this season",
-      "I broke Roger Maris' AL record",
-      "⚾ I also led the league with 131 RBIs"
+      "I was the first MLB pitcher to throw 4 no-hitters",
+      "My last no-hitter was a perfect game",
+      "I played my entire career for the Dodgers",
+      "I was the youngest player elected to the Hall of Fame",
+      "⚾ I retired at age 30 due to arthritis"
+    ]
+  },
+  // Harder NBA Records
+  {
+    answer: findExactPlayer("Wilt Chamberlain"),
+    question: "Who averaged 48.53 minutes per game in the 1961-62 NBA season?",
+    clues: [
+      "I played more minutes than were available in regulation games",
+      "I played every minute of every game, including overtime",
+      "This was the same season I averaged 50.4 points per game",
+      "I played for the Philadelphia Warriors",
+      "🏀 This record will likely never be broken"
     ]
   },
   {
-    answer: findExactPlayer("Stephen Curry"),
-    question: "Who led the NBA in three-pointers made in 2015-16?",
+    answer: findExactPlayer("Bill Russell"),
+    question: "Who grabbed 51 rebounds in a single NBA game in 1960?",
     clues: [
-      "I made 402 three-pointers this season",
-      "I played for the Golden State Warriors",
-      "I was unanimously named MVP this season",
-      "My team won a record 73 games",
-      "🏀 I averaged 30.1 points per game"
+      "I set this record against Syracuse on February 5",
+      "I was playing for the Boston Celtics",
+      "I averaged 24.7 rebounds per game that season",
+      "I won the MVP award that year",
+      "🏀 I won 11 championships in my career"
+    ]
+  },
+  // Harder NFL Records
+  {
+    answer: findExactPlayer("Jerry Rice"),
+    question: "Who holds the NFL record of 208 consecutive games with a reception?",
+    clues: [
+      "This streak spanned from 1985 to 2004",
+      "I played primarily for the San Francisco 49ers",
+      "I'm considered the greatest receiver of all time",
+      "I was selected to the Pro Bowl 13 times",
+      "🏈 I scored 208 career touchdowns"
     ]
   },
   {
-    answer: findExactPlayer("Wayne Gretzky"),
-    question: "Who led the NHL in points in 1985-86?",
+    answer: findExactPlayer("Brett Favre"),
+    question: "Who started 297 consecutive regular season games at quarterback?",
     clues: [
-      "I scored 215 points this season",
-      "I played for the Edmonton Oilers",
-      "I won the Hart Trophy as league MVP",
-      "I had 163 assists that season",
-      "🏒 This was one of my four 200+ point seasons"
+      "This streak lasted from 1992 to 2010",
+      "I played most of my career for the Green Bay Packers",
+      "I won three consecutive NFL MVP awards",
+      "I was known for my ironman streak",
+      "🏈 I threw 508 career touchdown passes"
+    ]
+  },
+  // International Soccer Records
+  {
+    answer: findExactPlayer("Pele"),
+    question: "Who scored 1,279 goals in 1,363 games, a Guinness World Record?",
+    clues: [
+      "I played primarily for Santos in Brazil",
+      "I won three World Cups with Brazil",
+      "I scored my 1000th goal on a penalty kick",
+      "I was named FIFA Player of the Century",
+      "⚽ I was nicknamed 'O Rei' (The King)"
     ]
   },
   {
-    answer: findExactPlayer("Michael Jordan"),
-    question: "Who led the NBA in scoring in 1986-87?",
+    answer: findExactPlayer("Cristiano Ronaldo"),
+    question: "Who holds the record for most international goals in men's soccer?",
     clues: [
-      "I averaged 37.1 points per game",
-      "I played for the Chicago Bulls",
-      "I won my first of ten scoring titles",
-      "I scored 3,041 total points",
-      "🏀 I also averaged 2.9 steals per game"
+      "I've scored over 120 goals for my national team",
+      "I've played in 5 World Cups",
+      "I've won 5 Champions League titles",
+      "I play for Portugal",
+      "⚽ I'm known for my 'SIU' celebration"
     ]
   },
+  // Tennis Records
   {
-    answer: findExactPlayer("Tom Brady"),
-    question: "Who led the NFL in touchdown passes in 2007?",
+    answer: findExactPlayer("Serena Williams"),
+    question: "Who won 23 Grand Slam singles titles in the Open Era?",
     clues: [
-      "I threw 50 touchdown passes this season",
-      "I played for the New England Patriots",
-      "I was named MVP that season",
-      "I led my team to a 16-0 record",
-      "🏈 I also threw for 4,806 yards"
+      "I won my first Grand Slam in 1999",
+      "I completed two 'Serena Slams'",
+      "I won four Olympic gold medals",
+      "I won my last major while pregnant",
+      "🎾 I'm considered the greatest female tennis player ever"
     ]
   },
+  // Track Records
   {
-    answer: findExactPlayer("Barry Bonds"),
-    question: "Who hit 73 home runs in the 2001 MLB season?",
+    answer: findExactPlayer("Usain Bolt"),
+    question: "Who holds the 100m world record of 9.58 seconds?",
     clues: [
-      "In baseball, I set the record for home runs in the 2001 season",
-      "I played for the San Francisco Giants",
-      "I was named MVP with a .863 slugging percentage",
-      "I hit 73 home runs in 2001",
-      "⚾ I was walked 177 times in 2001"
+      "I set this record in Berlin in 2009",
+      "I'm from Jamaica",
+      "I won 8 Olympic gold medals",
+      "I'm nicknamed 'Lightning Bolt'",
+      "🏃 I'm known for my 'lightning bolt' pose"
     ]
   },
   {
     answer: findExactPlayer("Wilt Chamberlain"),
-    question: "Who averaged 50.4 points in the 1961-62 NBA season?",
+    question: "Who averaged 48.53 minutes per game in the 1961-62 NBA season?",
     clues: [
-      "In basketball, I set the record for scoring in the 1961-62 season",
+      "I played more minutes than were available in regulation games",
+      "I played every minute of every game, including overtime",
+      "This was the same season I averaged 50.4 points per game",
       "I played for the Philadelphia Warriors",
-      "I scored 100 points in a single game this season",
-      "I averaged 50.4 points per game in 1961-62",
-      "🏀 I also grabbed 25.7 rebounds per game in 1961-62"
+      "🏀 This record will likely never be broken"
+    ]
+  },
+  {
+    answer: findExactPlayer("Bill Russell"),
+    question: "Who grabbed 51 rebounds in a single NBA game in 1960?",
+    clues: [
+      "I set this record against Syracuse on February 5",
+      "I was playing for the Boston Celtics",
+      "I averaged 24.7 rebounds per game that season",
+      "I won the MVP award that year",
+      "🏀 I won 11 championships in my career"
+    ]
+  },
+  // Harder NFL Records
+  {
+    answer: findExactPlayer("Jerry Rice"),
+    question: "Who holds the NFL record of 208 consecutive games with a reception?",
+    clues: [
+      "This streak spanned from 1985 to 2004",
+      "I played primarily for the San Francisco 49ers",
+      "I'm considered the greatest receiver of all time",
+      "I was selected to the Pro Bowl 13 times",
+      "🏈 I scored 208 career touchdowns"
+    ]
+  },
+  {
+    answer: findExactPlayer("Brett Favre"),
+    question: "Who started 297 consecutive regular season games at quarterback?",
+    clues: [
+      "This streak lasted from 1992 to 2010",
+      "I played most of my career for the Green Bay Packers",
+      "I won three consecutive NFL MVP awards",
+      "I was known for my ironman streak",
+      "🏈 I threw 508 career touchdown passes"
+    ]
+  },
+  // International Soccer Records
+  {
+    answer: findExactPlayer("Pele"),
+    question: "Who scored 1,279 goals in 1,363 games, a Guinness World Record?",
+    clues: [
+      "I played primarily for Santos in Brazil",
+      "I won three World Cups with Brazil",
+      "I scored my 1000th goal on a penalty kick",
+      "I was named FIFA Player of the Century",
+      "⚽ I was nicknamed 'O Rei' (The King)"
+    ]
+  },
+  {
+    answer: findExactPlayer("Cristiano Ronaldo"),
+    question: "Who holds the record for most international goals in men's soccer?",
+    clues: [
+      "I've scored over 120 goals for my national team",
+      "I've played in 5 World Cups",
+      "I've won 5 Champions League titles",
+      "I play for Portugal",
+      "⚽ I'm known for my 'SIU' celebration"
+    ]
+  },
+  // Tennis Records
+  {
+    answer: findExactPlayer("Serena Williams"),
+    question: "Who won 23 Grand Slam singles titles in the Open Era?",
+    clues: [
+      "I won my first Grand Slam in 1999",
+      "I completed two 'Serena Slams'",
+      "I won four Olympic gold medals",
+      "I won my last major while pregnant",
+      "🎾 I'm considered the greatest female tennis player ever"
+    ]
+  },
+  // Track Records
+  {
+    answer: findExactPlayer("Usain Bolt"),
+    question: "Who holds the 100m world record of 9.58 seconds?",
+    clues: [
+      "I set this record in Berlin in 2009",
+      "I'm from Jamaica",
+      "I won 8 Olympic gold medals",
+      "I'm nicknamed 'Lightning Bolt'",
+      "🏃 I'm known for my 'lightning bolt' pose"
     ]
   }
 ];
@@ -290,7 +410,6 @@ export default {
     // Get game index from URL
     const requestUrl = new URL(request.url);
     const gameId = requestUrl.searchParams.get('gameId');
-    console.log('Received gameId:', gameId);
     
     // Initialize worker state if needed
     let currentGameState;
