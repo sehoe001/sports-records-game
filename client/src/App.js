@@ -13,6 +13,8 @@ function App() {
   const [gameId, setGameId] = useState(null);
   const [answer, setAnswer] = useState(null);
   const [previousGuesses, setPreviousGuesses] = useState([]);
+  const [timer, setTimer] = useState(0);
+  const [timerInterval, setTimerInterval] = useState(null);
   const maxAttempts = 5;
 
   const fetchClue = useCallback(async () => {
@@ -39,6 +41,18 @@ function App() {
     } catch (error) {
     }
   }, [attempts, maxAttempts, gameId, won, gameOver]);
+
+  // Timer effect
+  useEffect(() => {
+    if (!gameOver && !won) {
+      const interval = setInterval(() => {
+        setTimer(prevTimer => prevTimer + 1);
+      }, 1000);
+      setTimerInterval(interval);
+
+      return () => clearInterval(interval);
+    }
+  }, [gameOver, won]);
 
   useEffect(() => {
     // Start a new game when component mounts
@@ -164,6 +178,14 @@ function App() {
       <header className="App-header">
         <h1>Sports Records Trivia</h1>
         <div className="game-container">
+          <div className="game-stats">
+            <div className="timer">
+              Time: {Math.floor(timer / 60)}:{(timer % 60).toString().padStart(2, '0')}
+            </div>
+            <div className="lives">
+              Lives: {Array(maxAttempts - attempts).fill('❤️').join('')}
+            </div>
+          </div>
           <h2 className="question">{question}</h2>
           {!gameOver ? (
             <>
@@ -240,6 +262,8 @@ function App() {
                   setShowSuggestions(false);
                   setAnswer(null);
                   setPreviousGuesses([]);
+                  setTimer(0);
+                  if (timerInterval) clearInterval(timerInterval);
 
                   // Start new game
                   const response = await fetch('https://sports-records-api.smhoesman.workers.dev/new-game', { method: 'POST' });
