@@ -114,8 +114,7 @@ function App() {
 
     // Check if this guess has been made before
     if (previousGuesses.includes(cleanGuess)) {
-      setClues(prevClues => [...prevClues, '❌ You already tried that name!']);
-      setGuess('');
+      alert('You already tried that name!');
       return;
     }
 
