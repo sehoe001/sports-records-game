@@ -1,62 +1,115 @@
+/* Modern Sports Records Game UI */
+:root {
+  --primary-color: #2563eb;
+  --secondary-color: #1e40af;
+  --background-color: #f8fafc;
+  --text-color: #1e293b;
+  --success-color: #16a34a;
+  --error-color: #dc2626;
+  --border-radius: 12px;
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
 .App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
   text-align: center;
 }
 
 .App-header {
-  background-color: #282c34;
+  padding: 2rem;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  justify-content: flex-start;
+}
+
+.App-header h1 {
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  margin-bottom: 2rem;
+  font-weight: 800;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .game-container {
-  background-color: #3a3f4b;
+  max-width: 800px;
+  margin: 0 auto;
   padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  max-width: 600px;
+  background: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
   width: 90%;
 }
 
+.question {
+  font-size: 1.5rem;
+  color: var(--text-color);
+  margin-bottom: 2rem;
+  line-height: 1.4;
+  font-weight: 600;
+}
+
 .clues-container {
-  margin: 1rem 0;
-  padding: 1rem;
-  background-color: #2d3139;
-  border-radius: 8px;
-  text-align: left;
+  margin: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .clue {
-  margin: 0.5rem 0;
-  padding: 0.5rem;
-  border-left: 3px solid #61dafb;
-  background-color: #343842;
-  border-radius: 0 4px 4px 0;
+  padding: 1rem;
+  background: #f1f5f9;
+  border-radius: var(--border-radius);
+  margin: 0;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  transition: transform 0.2s;
+  border-left: 4px solid var(--primary-color);
 }
 
-.question {
-  color: #61dafb;
-  font-size: 1.5rem;
-  margin-bottom: 1.5rem;
-  text-align: center;
-  line-height: 1.4;
+.clue:hover {
+  transform: translateX(4px);
 }
 
 .guess-form {
   display: flex;
+  flex-direction: column;
   gap: 1rem;
-  margin-top: 1rem;
-  position: relative;
+  margin-top: 2rem;
   width: 100%;
 }
 
 .input-container {
   position: relative;
-  flex-grow: 1;
+  width: 100%;
+}
+
+input {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: var(--border-radius);
+  transition: all 0.2s;
+  box-sizing: border-box;
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
 }
 
 .suggestions-list {
@@ -64,61 +117,100 @@
   top: 100%;
   left: 0;
   right: 0;
-  background-color: #fff;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  margin: 0;
-  padding: 0;
+  background: white;
+  border-radius: 0 0 var(--border-radius) var(--border-radius);
+  box-shadow: var(--shadow);
   list-style: none;
+  padding: 0;
+  margin: 0;
+  z-index: 10;
   max-height: 200px;
   overflow-y: auto;
-  z-index: 1000;
 }
 
 .suggestions-list li {
-  padding: 0.5rem 1rem;
+  padding: 0.75rem 1rem;
   cursor: pointer;
-  color: #282c34;
+  transition: all 0.2s;
   text-align: left;
+  color: var(--text-color);
 }
 
 .suggestions-list li:hover {
-  background-color: #f0f0f0;
-}
-
-input {
-  padding: 0.5rem;
-  font-size: 1rem;
-  border: none;
-  border-radius: 4px;
-  width: 100%;
-  box-sizing: border-box;
+  background: #f1f5f9;
+  color: var(--primary-color);
 }
 
 button {
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
+  background: var(--primary-color);
+  color: white;
   border: none;
-  border-radius: 4px;
-  background-color: #61dafb;
-  color: #282c34;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  border-radius: var(--border-radius);
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: all 0.2s;
+  font-weight: 600;
 }
 
 button:hover {
-  background-color: #4fa8d5;
+  background: var(--secondary-color);
+  transform: translateY(-1px);
 }
 
 button:disabled {
-  background-color: #4a4e57;
+  background: #94a3b8;
   cursor: not-allowed;
+  transform: none;
 }
 
 .game-over {
   text-align: center;
+  padding: 2rem;
 }
 
-.game-over button {
-  margin-top: 1rem;
+.game-over h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: var(--text-color);
+}
+
+.attempts-remaining {
+  font-size: 1.1rem;
+  color: #64748b;
+  margin: 1rem 0;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.clue {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .App-header {
+    padding: 1rem;
+  }
+
+  .game-container {
+    padding: 1rem;
+    margin: 0 1rem;
+  }
+
+  .App-header h1 {
+    font-size: 2rem;
+  }
+
+  .question {
+    font-size: 1.25rem;
+  }
+
+  button {
+    width: 100%;
+  }
 }

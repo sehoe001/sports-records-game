@@ -128,17 +128,24 @@ function App() {
         },
         body: JSON.stringify({ guess, gameId }),
       });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
       const data = await response.json();
       console.log('Guess response:', data);
 
-      if (data.correct) {
+      if (data.error) {
+        console.error('Server error:', data.error);
+        return;
+      }
+
+      if (data.correct === true) { // Explicitly check for true
         console.log('Correct guess! Updating state...');
         // Update state in a single batch
         setWon(true);
         setGameOver(true);
         setClues(prevClues => [...prevClues, '🎉 Correct! You won!']);
-        setAttempts(prevAttempts => prevAttempts); // Force a state update
-      } else {
+      } else if (data.correct === false) { // Explicitly check for false
         console.log('Incorrect guess, incrementing attempts...');
         setAttempts(prevAttempts => {
           const newAttempts = prevAttempts + 1;
@@ -163,11 +170,13 @@ function App() {
           <h2 className="question">{question}</h2>
           {!gameOver ? (
             <>
-              <p>Attempts remaining: {maxAttempts - attempts}</p>
+              <p className="attempts-remaining">
+                {maxAttempts - attempts} {maxAttempts - attempts === 1 ? 'attempt' : 'attempts'} remaining
+              </p>
               <div className="clues-container">
                 {clues.map((clue, index) => (
                   <p key={index} className="clue">
-                    Clue {index + 1}: {clue}
+                    <strong>Clue {index + 1}:</strong> {clue}
                   </p>
                 ))}
               </div>
@@ -178,8 +187,9 @@ function App() {
                     value={guess}
                     onChange={handleInputChange}
                     onFocus={() => setShowSuggestions(true)}
-                    placeholder="Enter your guess"
+                    placeholder="Type a player's name..."
                     disabled={gameOver}
+                    autoComplete="off"
                   />
                   {showSuggestions && suggestions.length > 0 && (
                     <ul className="suggestions-list">
@@ -194,14 +204,25 @@ function App() {
                     </ul>
                   )}
                 </div>
-                <button type="submit" disabled={gameOver}>
+                <button type="submit" disabled={gameOver || !guess.trim()}>
                   Submit Guess
                 </button>
               </form>
             </>
           ) : (
             <div className="game-over">
-              <h2>{won ? 'Congratulations! You won!' : 'Game Over!'}</h2>
+              <h2>
+                {won ? (
+                  <>
+                    🎉 Congratulations! You won!
+                    <p style={{ fontSize: '1rem', marginTop: '1rem', color: '#64748b' }}>
+                      You got it in {attempts} {attempts === 1 ? 'attempt' : 'attempts'}!
+                    </p>
+                  </>
+                ) : (
+                  'Game Over!'
+                )}
+              </h2>
               <button onClick={async () => {
                 try {
                   // Reset all state first
