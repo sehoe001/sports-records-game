@@ -14,9 +14,9 @@ function App() {
   const maxAttempts = 5;
 
   const fetchClue = useCallback(async () => {
-    console.log('fetchClue called with:', { attempts, maxAttempts, gameId, won });
-    if (won) {
-      console.log('Game is won, skipping clue fetch');
+    console.log('fetchClue called with:', { attempts, maxAttempts, gameId, won, gameOver });
+    if (won || gameOver) {
+      console.log('Game is won or over, skipping clue fetch');
       return;
     }
     if (attempts >= maxAttempts) {
@@ -145,6 +145,8 @@ function App() {
         setWon(true);
         setGameOver(true);
         setClues(prevClues => [...prevClues, '🎉 Correct! You won!']);
+        // Don't increment attempts on correct guess
+        return;
       } else if (data.correct === false) { // Explicitly check for false
         console.log('Incorrect guess, incrementing attempts...');
         setAttempts(prevAttempts => {
