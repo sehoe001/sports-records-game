@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import './App.css';
+import logo from './logo.svg?v=3';
 
 function App() {
   const [guess, setGuess] = useState('');
@@ -178,6 +179,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+        <img src={logo} alt="Sportle" style={{ height: '50px', marginBottom: '1rem' }} />
         <h1>Sportle</h1>
         <div className="game-container">
           <div className="game-stats">
