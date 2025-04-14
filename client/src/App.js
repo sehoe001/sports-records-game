@@ -14,23 +14,32 @@ function App() {
   const maxAttempts = 5;
 
   const fetchClue = useCallback(async () => {
-    if (!won && attempts < maxAttempts) {
-      try {
-        const response = await fetch(`https://sports-records-api.smhoesman.workers.dev/clue?attempt=${attempts}&gameId=${gameId || ''}`);
-        const data = await response.json();
-        if (attempts === 0) {
-          setClues([data.clue]);
-          setQuestion(data.question);
-        } else {
-          setClues(prevClues => [...prevClues, data.clue]);
-          // Show answer on last attempt
-          if (data.answer) {
-            setClues(prevClues => [...prevClues, `The answer was: ${data.answer}`]);
-          }
+    console.log('fetchClue called with:', { attempts, maxAttempts, gameId, won });
+    if (won) {
+      console.log('Game is won, skipping clue fetch');
+      return;
+    }
+    if (attempts >= maxAttempts) {
+      console.log('Max attempts reached, skipping clue fetch');
+      return;
+    }
+    try {
+      console.log('Fetching clue...');
+      const response = await fetch(`https://sports-records-api.smhoesman.workers.dev/clue?attempt=${attempts}&gameId=${gameId || ''}`);
+      const data = await response.json();
+      console.log('Clue response:', data);
+      if (attempts === 0) {
+        setClues([data.clue]);
+        setQuestion(data.question);
+      } else {
+        setClues(prevClues => [...prevClues, data.clue]);
+        // Show answer on last attempt
+        if (data.answer) {
+          setClues(prevClues => [...prevClues, `The answer was: ${data.answer}`]);
         }
-      } catch (error) {
-        console.error('Error fetching clue:', error);
       }
+    } catch (error) {
+      console.error('Error fetching clue:', error);
     }
   }, [attempts, maxAttempts, gameId, won]);
 
@@ -111,6 +120,7 @@ function App() {
     if (guess.trim() === '') return;
 
     try {
+      console.log('Submitting guess:', { guess, gameId });
       const response = await fetch('https://sports-records-api.smhoesman.workers.dev/guess', {
         method: 'POST',
         headers: {
@@ -119,14 +129,20 @@ function App() {
         body: JSON.stringify({ guess, gameId }),
       });
       const data = await response.json();
+      console.log('Guess response:', data);
 
       if (data.correct) {
+        console.log('Correct guess! Updating state...');
+        // Update state in a single batch
         setWon(true);
         setGameOver(true);
         setClues(prevClues => [...prevClues, '🎉 Correct! You won!']);
+        setAttempts(prevAttempts => prevAttempts); // Force a state update
       } else {
+        console.log('Incorrect guess, incrementing attempts...');
         setAttempts(prevAttempts => {
           const newAttempts = prevAttempts + 1;
+          console.log('New attempts:', newAttempts);
           if (newAttempts >= maxAttempts) {
             setGameOver(true);
           }
