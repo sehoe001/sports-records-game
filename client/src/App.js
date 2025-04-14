@@ -11,6 +11,7 @@ function App() {
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [gameId, setGameId] = useState(null);
+  const [answer, setAnswer] = useState(null);
   const maxAttempts = 5;
 
   const fetchClue = useCallback(async () => {
@@ -34,9 +35,9 @@ function App() {
         setQuestion(data.question);
       } else {
         setClues(prevClues => [...prevClues, data.clue]);
-        // Show answer on last attempt
+        // Store answer on last attempt
         if (data.answer) {
-          setClues(prevClues => [...prevClues, `The answer was: ${data.answer}`]);
+          setAnswer(data.answer);
         }
       }
     } catch (error) {
@@ -223,7 +224,14 @@ function App() {
                     </p>
                   </>
                 ) : (
-                  'Game Over!'
+                  <>
+                    Game Over!
+                    {answer && (
+                      <p style={{ fontSize: '1.2rem', marginTop: '1rem', color: '#ef4444' }}>
+                        The answer was: {answer}
+                      </p>
+                    )}
+                  </>
                 )}
               </h2>
               <button onClick={async () => {
@@ -237,6 +245,7 @@ function App() {
                   setQuestion('');
                   setSuggestions([]);
                   setShowSuggestions(false);
+                  setAnswer(null);
 
                   // Start new game
                   const response = await fetch('https://sports-records-api.smhoesman.workers.dev/new-game', { method: 'POST' });
