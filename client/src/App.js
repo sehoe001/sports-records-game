@@ -23,6 +23,10 @@ function App() {
           setQuestion(data.question);
         } else {
           setClues(prevClues => [...prevClues, data.clue]);
+          // Show answer on last attempt
+          if (data.answer) {
+            setClues(prevClues => [...prevClues, `The answer was: ${data.answer}`]);
+          }
         }
       } catch (error) {
         console.error('Error fetching clue:', error);

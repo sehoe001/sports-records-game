@@ -5,30 +5,107 @@ const sportsRecords = [
     answer: "adrian peterson",
     question: "Who had the most rushing yards in the 2012 NFL season?",
     clues: [
-      "I rushed for the most yards in the 2012 NFL season",
+      "In football, I set the record for rushing yards in the 2012 season",
       "I played for the Minnesota Vikings",
-      "I was named NFL MVP this year",
-      "I finished with 2,097 rushing yards",
-      "🏈 I averaged 6.0 yards per carry and came back from an ACL injury"
+      "I was named MVP after returning from an ACL injury",
+      "I rushed for 2,097 yards in 2012",
+      "🏈 I averaged 6.0 yards per carry in 2012"
     ]
   },
-  // Copy all other records from server.js here
+  {
+    answer: "aaron judge",
+    question: "Who hit 62 home runs in the 2022 MLB season?",
+    clues: [
+      "In baseball, I set the record for home runs in the 2022 season",
+      "I played for the New York Yankees",
+      "I was named MVP and broke Roger Maris' record",
+      "I hit 62 home runs in 2022",
+      "⚾ I also led the league in RBIs and runs in 2022"
+    ]
+  },
+  {
+    answer: "steph curry",
+    question: "Who made 402 three-pointers in the 2015-16 NBA season?",
+    clues: [
+      "In basketball, I set the record for three-pointers in the 2015-16 season",
+      "I played for the Golden State Warriors",
+      "I was unanimously named MVP this season",
+      "I made 402 three-pointers in 2015-16",
+      "🏀 My team won a record 73 games in 2015-16"
+    ]
+  },
+  {
+    answer: "wayne gretzky",
+    question: "Who scored 215 points in the 1985-86 NHL season?",
+    clues: [
+      "In hockey, I set the record for points in the 1985-86 season",
+      "I played for the Edmonton Oilers",
+      "I won the Hart Trophy as league MVP",
+      "I scored 215 points in 1985-86",
+      "🏒 I had 163 assists in 1985-86, also a record"
+    ]
+  },
+  {
+    answer: "michael jordan",
+    question: "Who averaged 37.1 points in the 1986-87 NBA season?",
+    clues: [
+      "In basketball, I set the record for scoring in the 1986-87 season",
+      "I played for the Chicago Bulls",
+      "I won the scoring title this season",
+      "I averaged 37.1 points per game in 1986-87",
+      "🏀 I scored 3,041 points in 1986-87"
+    ]
+  },
+  {
+    answer: "tom brady",
+    question: "Who threw 50 touchdown passes in the 2007 NFL season?",
+    clues: [
+      "In football, I set the record for touchdown passes in the 2007 season",
+      "I played for the New England Patriots",
+      "I was named MVP in an undefeated regular season",
+      "I threw 50 touchdown passes in 2007",
+      "🏈 I led my team to a 16-0 record in 2007"
+    ]
+  },
+  {
+    answer: "barry bonds",
+    question: "Who hit 73 home runs in the 2001 MLB season?",
+    clues: [
+      "In baseball, I set the record for home runs in the 2001 season",
+      "I played for the San Francisco Giants",
+      "I was named MVP with a .863 slugging percentage",
+      "I hit 73 home runs in 2001",
+      "⚾ I was walked 177 times in 2001"
+    ]
+  },
+  {
+    answer: "wilt chamberlain",
+    question: "Who averaged 50.4 points in the 1961-62 NBA season?",
+    clues: [
+      "In basketball, I set the record for scoring in the 1961-62 season",
+      "I played for the Philadelphia Warriors",
+      "I scored 100 points in a single game this season",
+      "I averaged 50.4 points per game in 1961-62",
+      "🏀 I also grabbed 25.7 rebounds per game in 1961-62"
+    ]
+  }
 ];
 
 // Players list
 const players = [
-  // Current MLB Players
-  "Aaron Judge",
-  "Shohei Ohtani",
-  "Mike Trout",
-  "Giancarlo Stanton",
-  "Mookie Betts",
-  "Juan Soto",
-  "Ronald Acuña Jr.",
-  "Freddie Freeman",
-  "Bryce Harper",
-  "Fernando Tatis Jr.",
-  "Jacob deGrom",
+  // Current and historical players (all lowercase to match answers)
+  "aaron judge",
+  "adrian peterson",
+  "barry bonds",
+  "michael jordan",
+  "steph curry",
+  "stephen curry",
+  "tom brady",
+  "wayne gretzky",
+  "wilt chamberlain",
+  
+  // Additional suggestions
+  "lebron james",
   "Gerrit Cole",
   "Max Scherzer",
   "Clayton Kershaw",
@@ -195,9 +272,9 @@ export default {
     if (!gameId) {
       currentGame = sportsRecords[Math.floor(Math.random() * sportsRecords.length)];
     } else {
-      // Use gameId as a seed for random selection
-      const seed = gameId.split('-')[0]; // Use timestamp part as seed
-      const index = parseInt(seed) % sportsRecords.length;
+      // Use the random part of the gameId for selection
+      const random = parseInt(gameId.split('-')[1]);
+      const index = random % sportsRecords.length;
       currentGame = sportsRecords[index];
     }
     console.log('Selected game:', currentGame.answer);
@@ -215,11 +292,18 @@ export default {
         case 'clue': {
           const attempt = parseInt(requestUrl.searchParams.get('attempt'));
           if (attempt >= 0 && attempt < currentGame.clues.length) {
+            const response = {
+              clue: currentGame.clues[attempt],
+              question: currentGame.question
+            };
+            
+            // Add answer on the last attempt
+            if (attempt === currentGame.clues.length - 1) {
+              response.answer = currentGame.answer;
+            }
+            
             return new Response(
-              JSON.stringify({
-                clue: currentGame.clues[attempt],
-                question: currentGame.question
-              }),
+              JSON.stringify(response),
               { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
             );
           }
@@ -231,7 +315,18 @@ export default {
 
         case 'guess': {
           const { guess } = await request.json();
-          const correct = guess.toLowerCase() === currentGame.answer.toLowerCase();
+          console.log('Received guess:', guess);
+          console.log('Current answer:', currentGame.answer);
+          
+          // Clean up the guess and answer by removing spaces and making lowercase
+          const cleanGuess = guess.toLowerCase().trim();
+          const cleanAnswer = currentGame.answer.toLowerCase().trim();
+          const correct = cleanGuess === cleanAnswer;
+          
+          console.log('Clean guess:', cleanGuess);
+          console.log('Clean answer:', cleanAnswer);
+          console.log('Is correct:', correct);
+
           return new Response(
             JSON.stringify({ correct }),
             { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
@@ -239,10 +334,10 @@ export default {
         }
 
         case 'new-game': {
-          // Generate a random game ID using timestamp and random number
+          // Generate a random game ID using timestamp and random index
           const timestamp = Date.now();
-          const random = Math.floor(Math.random() * 1000000);
-          const newGameId = `${timestamp}-${random}`;
+          const randomIndex = Math.floor(Math.random() * sportsRecords.length);
+          const newGameId = `${timestamp}-${randomIndex}`;
           console.log('Generated new gameId:', newGameId);
           
           return new Response(
