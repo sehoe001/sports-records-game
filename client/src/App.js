@@ -178,7 +178,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Sports Records Trivia</h1>
+        <h1>Sportle</h1>
         <div className="game-container">
           <div className="game-stats">
             <div className="timer">
