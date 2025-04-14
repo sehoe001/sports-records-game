@@ -21,6 +21,7 @@ function App() {
     }
     if (attempts >= maxAttempts) {
       console.log('Max attempts reached, skipping clue fetch');
+      setGameOver(true);
       return;
     }
     try {
@@ -41,7 +42,7 @@ function App() {
     } catch (error) {
       console.error('Error fetching clue:', error);
     }
-  }, [attempts, maxAttempts, gameId, won]);
+  }, [attempts, maxAttempts, gameId, won, gameOver]);
 
   useEffect(() => {
     // Start a new game when component mounts
@@ -64,7 +65,7 @@ function App() {
       console.log('Fetching clue with gameId:', gameId);
       fetchClue();
     }
-  }, [fetchClue, gameId]);
+  }, [fetchClue, gameId, gameOver]);
 
 
 
