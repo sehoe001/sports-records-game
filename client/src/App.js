@@ -157,6 +157,7 @@ function App() {
         setGameOver(true);
         setClues(prevClues => [...prevClues, '🎉 Correct! You won!']);
         setPreviousGuesses(prev => [...prev, cleanGuess]);
+        setAttempts(prevAttempts => prevAttempts + 1);
         return;
       } else if (data.correct === false) { // Explicitly check for false
         setPreviousGuesses(prev => [...prev, cleanGuess]);
