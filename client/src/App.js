@@ -131,12 +131,11 @@ function App() {
       }
 
       if (data.correct === true) { // Explicitly check for true
-        console.log('Correct guess! Updating state...');
         // Update state in a single batch
         setWon(true);
         setGameOver(true);
         setClues(prevClues => [...prevClues, '🎉 Correct! You won!']);
-        // Don't increment attempts on correct guess
+        setAttempts(prevAttempts => prevAttempts + 1);
         return;
       } else if (data.correct === false) { // Explicitly check for false
         setAttempts(prevAttempts => {
